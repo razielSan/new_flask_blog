@@ -1,13 +1,10 @@
-from flask import Flask, render_template
+from blog import create_app
 
 
-app = Flask(__name__)
-
-
-@app.route("/")
-def index():
-    return render_template("index.html")
+app, db = create_app()
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    with app.app_context():
+        db.create_all()
+        app.run(debug=True)
